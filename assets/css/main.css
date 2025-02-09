@@ -1,0 +1,69 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.box {
+    border: 1px solid silver;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box:hover {
+    cursor: pointer;
+}
+
+.box.selected:hover {
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+.cross:after {
+    content: 'X';
+    display: block;
+    color: black;
+}
+
+.zero:after {
+    content: 'O';
+    display: block;
+    color: black;   
+}
+
+.game-over-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+.game-over-container.win {
+    display: flex;
+}
+
+.message-container {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    height: 25%;
+    width: 500px;
+    max-width: 80%;
+}
+
+.replay-btn {
+    align-self: flex-end;
+    margin-top: auto;
+    background: white;
+    border: 1px solid black;
+    padding: 10px 20px;
+    border-radius: 3px;
+}
