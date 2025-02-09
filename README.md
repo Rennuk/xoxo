@@ -1,1 +1,1 @@
-# xoxo
+Develop a Tic Tac Toe game in JavaScript which involves creating an interactive grid that serves as the game board, where each cell responds to user clicks. JavaScript functions update the game state by recording each move in arrays and switches between players. The game logic checks for winning combinations by comparing player selections against predefined winning patterns. This project combines programming concepts such as event handling, conditionals, and array manipulation.
