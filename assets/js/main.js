@@ -19,6 +19,7 @@ const winningCombinationArray = [
     [2,4,6],    
 ]
 let currentPlayer = 1;
+let gameWon = false;
 
 const createGrid = () => {    
     for (let index = 0; index < gridLength; index++) {
@@ -40,7 +41,7 @@ gridContainer.addEventListener('click', (e) => {
     const boxId = Number(e.target.id);
     const box = e.target;
 
-    if(box.classList.contains('selected')) {
+    if(box.classList.contains('selected') || gameWon) {
         return;
     }
 
@@ -56,22 +57,36 @@ gridContainer.addEventListener('click', (e) => {
 const addIndexToPlayerArray = (playerId, boxId) => {
     
     playerSelections[playerId].push(boxId);
-    playerSelections[playerId].sort();    
-    
+    playerSelections[playerId].sort();   
+        
     if(playerSelections[currentPlayer].length >= 3) {
         checkWinningCombination(playerId);
     } 
     
+    if(!gameWon){
+        checkDraw();
+    }
     switchPlayer(playerId);
 };
 
 const checkWinningCombination = (playerId) => {
     winningCombinationArray.forEach( (arr) => {
         if( arr.every((num) => playerSelections[playerId].includes(num))) {
-            gameOverContainer.classList.add('win');
-            winnerMessage.textContent = `Player ${playerId} wins, congrats!`
-        }
+            gameWon = true;
+            gameOverContainer.classList.add('end-game');
+            winnerMessage.textContent = `Player ${playerId} wins, congrats!`;
+        } 
     });
+};
+
+const checkDraw = () => {
+    const totalSelections = playerSelections[1].length + playerSelections[2].length;
+    
+    if(totalSelections === gridLength && !gameWon) {
+        gameWon = true;
+        gameOverContainer.classList.add('end-game');
+        winnerMessage.textContent = "It's a draw!";
+    }
 };
 
 const switchPlayer = (playerId) => {
@@ -91,11 +106,12 @@ const gameOver = () => {
     }
 
     currentPlayer = 1;
+    gameWon = false;
 }
 
 createGrid();
 
 replayBtn.addEventListener('click', () => {
-    gameOverContainer.classList.remove('win');
+    gameOverContainer.classList.remove('end-game');
     gameOver();
 });
